@@ -15,7 +15,7 @@
         }
 
         header {
-            background-color: #7a1f2a; /* えんじ色 */
+            background-color: #7a1f2a;
             color: white;
             padding: 30px 10px;
         }
@@ -27,7 +27,7 @@
         }
 
         .counter-box {
-            background-color: #c8b090; /* 茶色系 */
+            background-color: #c8b090;
             margin: 30px auto;
             padding: 20px;
             width: 80%;
@@ -94,16 +94,21 @@
 </footer>
 
 <script>
-    // CountAPI を使ってアクセス数をカウント＆表示する
-    fetch("https://api.countapi.xyz/hit/azuma-fes-2026/viewcount")
-        .then(response => response.json())
-        .then(data => {
-            document.getElementById("counter").textContent = data.value;
-        })
-        .catch(error => {
-            console.error("カウンター取得エラー:", error);
-            document.getElementById("counter").textContent = "エラー";
-        });
+    // GitHub Pages でも安定して動く countapi.dev を使用
+    async function updateCounter() {
+        const counter = document.getElementById("counter");
+
+        try {
+            const res = await fetch("https://countapi.dev/update/azuma-fes-2026/viewcount?amount=1");
+            const data = await res.json();
+            counter.textContent = data.value;
+        } catch (e) {
+            console.error("カウンター取得エラー:", e);
+            counter.textContent = "エラー";
+        }
+    }
+
+    updateCounter();
 </script>
 
 </body>
