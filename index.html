@@ -44,7 +44,6 @@
             color: #7a1f2a;
         }
 
-        /* ▼ スタートボタン ▼ */
         .nav-buttons {
             margin-top: 40px;
         }
@@ -83,10 +82,9 @@
 
 <div class="counter-box">
     <div>このページの閲覧数</div>
-    <div id="counter" class="counter-number">0</div>
+    <div id="counter" class="counter-number">読み込み中...</div>
 </div>
 
-<!-- ▼ スタートボタンのみ ▼ -->
 <div class="nav-buttons">
     <a href="start.html">スタート</a>
 </div>
@@ -96,17 +94,16 @@
 </footer>
 
 <script>
-    // ローカルストレージを使った簡易カウンター
-    let count = localStorage.getItem("azuma_view_count");
-
-    if (!count) {
-        count = 1;
-    } else {
-        count = Number(count) + 1;
-    }
-
-    localStorage.setItem("azuma_view_count", count);
-    document.getElementById("counter").textContent = count;
+    // CountAPI を使ってアクセス数をカウント＆表示する
+    fetch("https://api.countapi.xyz/hit/azuma-fes-2026/viewcount")
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById("counter").textContent = data.value;
+        })
+        .catch(error => {
+            console.error("カウンター取得エラー:", error);
+            document.getElementById("counter").textContent = "エラー";
+        });
 </script>
 
 </body>
