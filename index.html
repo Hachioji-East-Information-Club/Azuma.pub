@@ -1,47 +1,113 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pure HTML Neon</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Azuma - 待ち時間表示</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: "Hiragino Sans", "Noto Sans JP", sans-serif;
+            background-color: #f5f0e6;
+            color: #3e2f1c;
+            text-align: center;
+        }
+
+        header {
+            background-color: #7a1f2a; /* えんじ色 */
+            color: white;
+            padding: 30px 10px;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 2.4rem;
+            letter-spacing: 0.1em;
+        }
+
+        .counter-box {
+            background-color: #c8b090; /* 茶色系 */
+            margin: 30px auto;
+            padding: 20px;
+            width: 80%;
+            max-width: 400px;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+        }
+
+        .counter-number {
+            font-size: 2.4rem;
+            font-weight: bold;
+            margin-top: 10px;
+            color: #7a1f2a;
+        }
+
+        /* ▼ スタートボタン ▼ */
+        .nav-buttons {
+            margin-top: 40px;
+        }
+
+        .nav-buttons a {
+            display: inline-block;
+            background-color: #7a1f2a;
+            color: white;
+            padding: 14px 40px;
+            margin: 10px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-size: 1.3rem;
+            letter-spacing: 0.05em;
+            transition: 0.2s;
+        }
+
+        .nav-buttons a:hover {
+            background-color: #5c1820;
+        }
+
+        footer {
+            margin-top: 40px;
+            padding: 20px;
+            font-size: 0.9rem;
+            color: #7a1f2a;
+        }
+    </style>
 </head>
-<body bgcolor="black" text="#00ffff">
-  <center>
-    <h1>
-      <font size="7" color="#00ffff">
-        <marquee behavior="alternate" scrollamount="10">
-          ★ NEON PROJECT ★
-        </marquee>
-      </font>
-    </h1>
 
-    <p>
-      <font size="4" color="#cccccc">
-        Welcome to my GitHub test site
-      </font>
-    </p>
+<body>
 
-    <hr width="60%" color="#00ffff">
+<header>
+    <h1>Azuma - 待ち時間表示</h1>
+</header>
 
-    <p>
-      <font size="5" color="#ff00ff">
-        ▼ HTMLだけで作ったレトロネオンページ ▼
-      </font>
-    </p>
+<div class="counter-box">
+    <div>このページの閲覧数</div>
+    <div id="counter" class="counter-number">0</div>
+</div>
 
-    <marquee direction="up" height="100" scrollamount="3">
-      <font color="#00ffff">● COOL</font><br>
-      <font color="#ff00ff">● SIMPLE</font><br>
-      <font color="#00ffff">● PURE HTML</font><br>
-    </marquee>
+<!-- ▼ スタートボタンのみ ▼ -->
+<div class="nav-buttons">
+    <a href="start.html">スタート</a>
+</div>
 
-    <hr width="60%" color="#ff00ff">
+<footer>
+    © Yushi Information
+</footer>
 
-    <p>
-      <font size="4" color="#ffffff">
-        © 2026 Test Page
-      </font>
-    </p>
-  </center>
+<script>
+    // ローカルストレージを使った簡易カウンター
+    let count = localStorage.getItem("azuma_view_count");
+
+    if (!count) {
+        count = 1;
+    } else {
+        count = Number(count) + 1;
+    }
+
+    localStorage.setItem("azuma_view_count", count);
+    document.getElementById("counter").textContent = count;
+</script>
+
 </body>
 </html>
