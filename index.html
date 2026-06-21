@@ -37,11 +37,11 @@
             box-shadow: 0 3px 8px rgba(0,0,0,0.2);
         }
 
-        /* 数字だけの画像を大きく表示 */
-        .counter-img {
-            width: 200px;   /* ← 数字の大きさはここで調整できる */
-            height: auto;
+        .counter-number {
+            font-size: 3rem;
+            font-weight: bold;
             margin-top: 10px;
+            color: #7a1f2a;
         }
 
         .nav-buttons {
@@ -82,11 +82,7 @@
 
 <div class="counter-box">
     <div>このページの閲覧数</div>
-
-    <!-- 数字だけのアクセスカウンター（hitなし・安定動作） -->
-    <img class="counter-img"
-         src="https://simple-hit-counter.glitch.me/hit?url=hachioji-east-information-club.github.io/Azuma-Shirakashi-fes_2026"
-         alt="アクセス数">
+    <div id="counter" class="counter-number">0</div>
 </div>
 
 <div class="nav-buttons">
@@ -96,6 +92,23 @@
 <footer>
     © Yushi Information
 </footer>
+
+<script>
+    // ローカルに保存されたカウントを取得
+    let count = localStorage.getItem("page_count");
+
+    if (!count) {
+        count = 1;
+    } else {
+        count = Number(count) + 1;
+    }
+
+    // 保存
+    localStorage.setItem("page_count", count);
+
+    // 表示
+    document.getElementById("counter").textContent = count;
+</script>
 
 </body>
 </html>
