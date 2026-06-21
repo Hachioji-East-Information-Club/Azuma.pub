@@ -38,8 +38,6 @@
         }
 
         .counter-img {
-            width: 200px; /* 数字の大きさはここで調整できる */
-            height: auto;
             margin-top: 10px;
         }
 
@@ -82,10 +80,8 @@
 <div class="counter-box">
     <div>このページの閲覧数</div>
 
-    <!-- 全員のアクセス数をカウントする画像カウンター（ログイン不要・エラーなし） -->
-    <img class="counter-img"
-         src="https://www.cutercounter.com/hits.php?id=hmxqfxx&nd=6&style=1"
-         alt="アクセス数">
+    <!-- ここに自作画像カウンターを表示 -->
+    <img id="counterImage" class="counter-img" alt="アクセス数">
 </div>
 
 <div class="nav-buttons">
@@ -95,6 +91,43 @@
 <footer>
     © Yushi Information
 </footer>
+
+<script>
+/* ひなた専用：全員のアクセス数をカウントする */
+async function updateCounter() {
+    const namespace = "azuma_fes_2026";
+    const key = "page_views";
+
+    // CountAPI（CORS対応版）
+    const url = `https://api.countapi.xyz/update/${namespace}/${key}/?amount=1`;
+
+    let count = 0;
+
+    try {
+        const res = await fetch(url);
+        const data = await res.json();
+        count = data.value;
+    } catch (e) {
+        count = 0;
+    }
+
+    // 数字を画像として描画
+    const canvas = document.createElement("canvas");
+    canvas.width = 300;
+    canvas.height = 100;
+    const ctx = canvas.getContext("2d");
+
+    ctx.fillStyle = "#7a1f2a";
+    ctx.font = "bold 60px Arial";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText(count, 150, 50);
+
+    document.getElementById("counterImage").src = canvas.toDataURL();
+}
+
+updateCounter();
+</script>
 
 </body>
 </html>
